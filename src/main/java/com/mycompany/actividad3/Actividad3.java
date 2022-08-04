@@ -17,8 +17,8 @@ public class Actividad3
         //Punto 1: arrayList de objetos Cliente
         ArrayList<Cliente> arregloClientes = new ArrayList<>();
         String pNombre, pGenero, pPlaca, pMarca, pFecha, pMecanico;
-        int pMod, pcant3=0,pcant3Total=0;
-        double pValor,res3=0, maxRep4=0, menor5=0;
+        int pMod, pcant3=0,pcant3Total=0, cant=0, cantH9=0, cantM9=0, cant11=0;
+        double pValor,res3=0, maxRep4=0, menor5=100000000000.0, total6=0, valor=0, prom=0,valor12=0, minRep14=100000000000.0;
         
         //Agregar Clientes
         System.out.print("Ingrese nombre del primer cliente (/* para salir): ");
@@ -120,7 +120,7 @@ public class Actividad3
             pcant3Total+=cli.totalVehiculos();
         }
         res3=(pcant3/pcant3Total)*100;
-        System.out.println("El Porcentaje de vehiculos Marca Renault Modelo 2012 es: "+res3+"%.");
+        System.out.println("\nEl Porcentaje de vehiculos Marca Renault Modelo 2012 es: "+res3+"%.");
         
         //Punto 4: Mostrar los datos de TODOS los clientes que tiene mayor vlor de reparacion
         //Encuentro mayor valor de reparacion para todos los clientes
@@ -132,7 +132,7 @@ public class Actividad3
             }
         }
         //Lista de clientes
-        System.out.println("\nMostrar los datos de TODOS los clientes que tiene mayor valor de reparacion");
+        System.out.println("\nMostrar los datos de TODOS los clientes que tiene el mayor valor de reparacion");
         System.out.println("Nombre\tGenero");
         for(Cliente cli:arregloClientes)
         {
@@ -157,6 +157,141 @@ public class Actividad3
         for(Cliente cli:arregloClientes)
         {
             if(cli.getGenero().equals("f") && cli.menorReparacionCliente2010()==menor5)
+            {
+                System.out.println(cli.getNombre()+"\t"+cli.getGenero());
+            }
+        }
+        
+        //Punto6: Total dinero pagado por reparación al mecanico Benito Bueno
+        for(Cliente cli:arregloClientes)
+        {
+            total6+=cli.pagoMecanicoBenitoXCliente();
+        }
+        System.out.println("\nTotal dinero pagado por reparación al mecanico Benito Bueno: "+total6);
+        
+        //Punto 7: promedio pagado por reparaciones de todos los clientes
+        for(Cliente cli:arregloClientes)
+        {
+            cant+=cli.totalCantReparacionXCliente();
+            valor+=cli.totalValorReparacionXCliente();
+        }
+        prom=valor/cant;
+        System.out.println("\nPromedio pagado por reparaciones de todos los clientes: "+prom);
+        
+        //Punto 8: promedio de pagado por reparaciones de todos loc clientes mujeres con vehiculos marca Hyundai
+        prom=0;valor=0;cant=0;
+        for(Cliente cli:arregloClientes)
+        {
+            if(cli.getGenero().equals("f"))
+            {
+                for(Vehiculo veh: cli.getArregloVehiculos())
+                {
+                    if(veh.getMarca().equals("Hyundai"))
+                    {
+                        valor+=veh.totalValorReparacion();
+                        cant+=veh.totalCantReparacion();
+                    }
+                }
+            }
+        }
+        prom=valor/cant;
+        System.out.println("\nPromedio de pagado por reparaciones de todos los clientes mujeres con vehiculos marca Hyundai: "+prom);
+        
+        //Punto 9: Numero de clientes hombres y mujeres
+        for(Cliente cli:arregloClientes)
+        {
+            if(cli.getGenero().equals("f"))
+            {cantM9++;} 
+            else 
+            {cantH9++;}
+        }
+        System.out.println("\nNumero de clientes hombres y mujeres, respectivamente son: "+cantH9+" y "+cantM9);
+        
+        //Punto 10: Dado el nombre de un cliente lista la cantidad de vehiculos que ha reparado y el total de dinero pagado por ese concepto
+        System.out.print("\nIngrese nombre del cliente a quien desea saber la cantidad de vehiculos que ha reparado y el total de dinero pagado por ese concepto: ");
+        pNombre=lector.nextLine();
+        valor=0;cant=0;
+        for(Cliente cli:arregloClientes)
+        {
+            if(cli.getNombre().equals(pNombre))
+            {    
+                for(Vehiculo veh:cli.getArregloVehiculos())
+                {
+                    if(!veh.getArregloReparaciones().isEmpty())
+                    {
+                    valor+=veh.totalValorReparacion();
+                    cant++;
+                    }
+                }
+            break;
+            }
+        }
+        System.out.println("Para el cliente: "+pNombre+", ha reparado "+cant+" vehiculos y ha pagado en total por ese concepto $"+valor);
+        
+        //Punto11: Cantidad y porcentaje de vehículos reparados cuyo valor es superior a los 4 SMLV
+        cant=0;
+        for(Cliente cli:arregloClientes)
+        {    
+            cant11+=cli.totalVehiculos();
+            for(Vehiculo veh:cli.getArregloVehiculos())
+            {
+                if(veh.totalValorReparacion()>4000000)
+                    {
+                    cant++;
+                }
+            }
+        }
+        System.out.println("\nCantidad y porcentaje de vehículos reparados cuyo valor es superior a los 4 SMLV, respectivamente son: "+cant+" y "+cant/cant11+"%");
+        
+        //Punto 12: Dado la placa de un vehiculo, cambiar el valor de la reparacion por el 15% del valor de sus reparaciones
+        System.out.print("\nIngrese placa del vehiculo al que desea cambiar el valor de la reparacion por el 15% del valor de sus reparaciones: ");
+        pNombre=lector.nextLine();
+        valor=0;
+        for(Cliente cli:arregloClientes)
+        {
+            for(Vehiculo veh:cli.getArregloVehiculos())
+            {
+                if(veh.getPlaca().equals(pNombre))
+                {
+                    valor=veh.totalValorReparacion();
+                    veh.cambioValorRep15();
+                    valor12=veh.totalValorReparacion();
+                    break;
+                }
+            }
+        }
+        System.out.println("\nEl vehiculo con placa "+pNombre+", tenia un valor de repaciones original por: $"+valor+" y ahora es $"+valor12);
+        
+        //Punto 13: Dado el nombre de un cliente, muestre el total pagado por todas las reparaciones
+        System.out.print("\nIngrese nombre del cliente a quien desea saber el total pagado por todas las reparaciones");
+        pNombre=lector.nextLine();
+        valor=0;
+        for(Cliente cli:arregloClientes)
+        {
+            if(cli.getNombre().equals(pNombre))
+            {
+                valor=cli.totalValorReparacionXCliente();
+                break;
+            }
+        }
+        System.out.println("\nPara el cliente: "+pNombre+", el total pagado por todas las reparaciones es $:"+valor);
+        
+        
+        //Punto14: Mostrar todos los datos de los clientes que tiene  el menor valor reparación
+        //Encuentro menor valor de reparacion para todos los clientes
+        for(Cliente cli:arregloClientes)
+        {
+            if(cli.mayorReparacionCliente()<minRep14)
+            {
+                minRep14=cli.menorReparacionCliente();
+            }
+        }
+        //Lista de clientes
+        System.out.println("\nMostrar los datos de TODOS los clientes que tiene el menor valor de reparacion");
+        System.out.println("Nombre\tGenero");
+        for(Cliente cli:arregloClientes)
+        {
+            if(cli.mayorReparacionCliente()==minRep14)
             {
                 System.out.println(cli.getNombre()+"\t"+cli.getGenero());
             }

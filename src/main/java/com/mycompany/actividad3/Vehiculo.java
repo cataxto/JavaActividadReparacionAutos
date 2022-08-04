@@ -103,7 +103,7 @@ public class Vehiculo implements Seguros
     
     public double menorReparacionVeh()
     {
-        double menorRep=0;
+        double menorRep=100000000000.0;
         for (Reparaciones rep : this.arregloReparaciones) 
         {
             if(rep.getValor()<menorRep)

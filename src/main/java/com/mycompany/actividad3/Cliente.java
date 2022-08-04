@@ -107,6 +107,17 @@ public class Cliente
         return mayorRepCliente;
     }
     
+    public double menorReparacionCliente()
+    {
+        double menorRepCliente=10000000000000000.0;
+        for(Vehiculo veh: this.arregloVehiculos)
+        {
+            if(veh.menorReparacionVeh()<menorRepCliente)
+                menorRepCliente=veh.mayorReparacionVeh();
+        }
+        return menorRepCliente;
+    }
+    
     public double menorReparacionCliente2010()
     {
         double menorRepCliente=0;
@@ -148,15 +159,4 @@ public class Cliente
         }
         return totalCantRepCliente;
     }
-    
-    public void cambioVlrRep15(String parPlaca)
-    {
-        for(Vehiculo veh: this.arregloVehiculos)
-        {
-            if(veh.getPlaca().equals(parPlaca))
-            {veh.cambioValorRep15();}
-        }
-    }
-    
-    
 }
