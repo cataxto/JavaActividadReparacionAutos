@@ -38,7 +38,12 @@ public class Cliente
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    public ArrayList<Vehiculo> getArregloVehiculos() {
+        return arregloVehiculos;
+    }
     
+        
     public void agregarVehiculo(String placa, int modelo, String marca)
     {
         arregloVehiculos.add(new Vehiculo(placa, modelo, marca));
@@ -102,12 +107,12 @@ public class Cliente
         return mayorRepCliente;
     }
     
-    public double menorReparacionCliente()
+    public double menorReparacionCliente2010()
     {
         double menorRepCliente=0;
         for(Vehiculo veh: this.arregloVehiculos)
         {
-            if(veh.mayorReparacionVeh()<menorRepCliente)
+            if(veh.mayorReparacionVeh()<menorRepCliente && veh.getModelo()==2010)
                 menorRepCliente=veh.mayorReparacionVeh();
         }
         return menorRepCliente;

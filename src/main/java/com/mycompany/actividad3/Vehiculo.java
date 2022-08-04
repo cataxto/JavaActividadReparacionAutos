@@ -51,7 +51,11 @@ public class Vehiculo implements Seguros
     public void setMarca(String marca) {
         this.marca = marca;
     }
-    
+
+    public ArrayList<Reparaciones> getArregloReparaciones() {
+        return arregloReparaciones;
+    }
+ 
     public void agregarReparacion(String fecha, String mecanico, double valor)
     {
         arregloReparaciones.add(new Reparaciones(fecha,mecanico,valor));
