@@ -84,7 +84,7 @@ public class Cliente
         int contEsRenault2012=0;
         for(Vehiculo veh: this.arregloVehiculos)
         {
-            if(veh.getMarca().equals("Renault") && veh.getModelo()==2012)
+            if(veh.getMarca().toLowerCase().trim().equals("renault") && veh.getModelo()==2012)
                 contEsRenault2012++;
         }
         return contEsRenault2012;

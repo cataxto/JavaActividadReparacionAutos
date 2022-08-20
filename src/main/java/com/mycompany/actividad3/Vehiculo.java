@@ -79,7 +79,7 @@ public class Vehiculo implements Seguros
     {
         boolean reparoLuisF=false;
         for (Reparaciones rep : this.arregloReparaciones) {
-            if(rep.getMecanico().equals("Luis Figo"))
+            if(rep.getMecanico().toLowerCase().trim().equals("luis figo"))
             {
                 reparoLuisF=true;
                 break;
@@ -119,7 +119,7 @@ public class Vehiculo implements Seguros
         double totalPagadoBenito=0;
         for (Reparaciones rep : this.arregloReparaciones) 
         {
-            if(rep.getMecanico().equals("Benito Bueno"))
+            if(rep.getMecanico().toLowerCase().trim().equals("benito bueno"))
                 totalPagadoBenito+=rep.getValor();
         }
         return totalPagadoBenito;
